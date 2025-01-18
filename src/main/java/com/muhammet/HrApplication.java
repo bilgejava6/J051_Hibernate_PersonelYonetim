@@ -18,6 +18,7 @@ public class HrApplication {
 //        Personel personel = Personel.builder().ad("Ahmet").soyad("TAŞ").adres("Ankara").build();
 //        personelRepository.save(personel);
 
-        new EnvanterRepository().save(Envanter.builder().ad("Masa").stokAdedi(5).build());
+//        new EnvanterRepository().save(Envanter.builder().ad("Masa").stokAdedi(5).build());
+        new PersonelRepository().findAll(new Personel()).forEach(System.out::println);
     }
 }

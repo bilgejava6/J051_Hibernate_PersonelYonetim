@@ -3,6 +3,9 @@ package com.muhammet.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 
@@ -43,7 +46,18 @@ public class RepositoryManager<T> implements Repository<T>{
         return false;
     }
 
-    public List<T> findAll() {
-        return List.of();
+    public List<T> findAll(T t) {
+        /**
+         * Select * from tbl?????
+         */
+        beginTransaction();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        // bir sorgu oluşturmak için kullanılacak entity istiyor. (Tablo seçildi)
+        CriteriaQuery<T> criteriaQuery = (CriteriaQuery<T>) cb.createQuery(t.getClass());
+        // select (*), fields
+        Root<T> root = (Root<T>) criteriaQuery.from(t.getClass()); // from table
+        // select * from table
+        criteriaQuery.select(root);
+        return em.createQuery(criteriaQuery).getResultList();
     }
 }

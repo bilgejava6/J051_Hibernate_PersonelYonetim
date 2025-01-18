@@ -15,5 +15,5 @@ public interface Repository<T> {
     T save(T t);
     T update(T t);
     boolean delete(Long id);
-    List<T> findAll();
+    List<T> findAll(T t);
 }
